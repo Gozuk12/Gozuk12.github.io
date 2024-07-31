@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GozukAddons | JSON Generator</title>
+    <link rel="shortcut icon" href="https://mc-heads.net/avatar/Gozuk12/64" />
+    <link
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.7.1/jszip.min.js"></script>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body class="dark-mode">
+    <button class="dark-mode-switch" role="button">Dark Mode</button>
+    <div
+      class="modal fade"
+      id="downloadModal"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="downloadModalTitle"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitle">
+              How to install
+            </h5>
+          </div>
+          <div class="modal-body">
+            1. Unzip the folder into:<br />ChatTriggers/modules/GozukAddons/routes
+            <hr />
+            2. Make sure the folder structure is:
+            <br />
+            ChatTriggers<br />↳ Modules<br />&nbsp;&nbsp;&nbsp;↳ GozukAddons<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;↳
+            Routes<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;↳
+            <span id="your-folder">&lt;your folder&gt;</span
+            ><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;↳
+            archer-p5.json<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;↳
+            archer-terminals.json<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;↳
+            tank-p5.json<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;↳
+            tank-terminals.json
+            <hr />
+            3. Run the "<span id="your-folder-command"
+              >/ga select &lt;your folder&gt;</span
+            >" command ingame
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-primary mb-2"
+              onclick="generateZIP()"
+            >
+              Download ZIP
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6">
+          <div class="big-box" id="archer-box">
+            <div
+              class="box-section"
+              id="archer-terminals"
+              ondrop="drop(event, 'archer-terminals')"
+              ondragover="allowDrop(event)"
+            >
+              <h5>Archer Terminals</h5>
+            </div>
+            <div
+              class="box-section"
+              id="archer-relic"
+              ondrop="drop(event, 'archer-relic')"
+              ondragover="allowDrop(event)"
+            >
+              <h5>Archer Relics</h5>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="big-box" id="tank-box">
+            <div
+              class="box-section"
+              id="tank-terminals"
+              ondrop="drop(event, 'tank-terminals')"
+              ondragover="allowDrop(event)"
+            >
+              <h5>Tank Terminals</h5>
+            </div>
+
+            <div
+              class="box-section"
+              id="tank-relic"
+              ondrop="drop(event, 'tank-relic')"
+              ondragover="allowDrop(event)"
+            >
+              <h5>Tank Relics</h5>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <div class="item-group" id="terminals-1-group">
+            <h5>Terminals (1)</h5>
+            <div class="item-row" id="terminals-1"></div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="item-group" id="terminals-2-group">
+            <h5>Terminals (2)</h5>
+            <div class="item-row" id="terminals-2"></div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="item-group" id="terminals-3-group">
+            <h5>Terminals (3)</h5>
+            <div class="item-row" id="terminals-3"></div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="item-group" id="terminals-4-group">
+            <h5>Terminals (4)</h5>
+            <div class="item-row" id="terminals-4"></div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="item-group" id="relics-group">
+            <h5>Relics</h5>
+            <div class="item-row" id="relics"></div>
+          </div>
+        </div>
+        <div class="col-md-6" style="padding: 2rem">
+          <h5>Download</h5>
+          <div class="form-inline">
+            <label class="sr-only" for="inlineFormInputName2">Name</label>
+            <input
+              id="zip-name"
+              type="text"
+              class="form-control mb-2 mr-sm-2"
+              placeholder="Name"
+            />
+            <button
+              type="button"
+              class="btn btn-primary mb-2"
+              onclick="modalFunc()"
+            >
+              Generate JSON Files
+            </button>
+            <small class="form-text text-muted"
+              >Can't be left empty named "default"</small
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  </body>
+</html>
